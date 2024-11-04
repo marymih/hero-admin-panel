@@ -27,6 +27,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         heroes: [...state.heroes, action.payload],
       };
+    case 'DELETE_HERO':
+      return {
+        ...state,
+        heroes: state.heroes.filter((hero) => hero.id !== action.payload),
+      }
     default:
       return state;
   }

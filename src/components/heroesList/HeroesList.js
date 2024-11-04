@@ -6,6 +6,7 @@ import {
   heroesFetching,
   heroesFetched,
   heroesFetchingError,
+	deleteHero
 } from '../../actions';
 import HeroesListItem from '../heroesListItem/HeroesListItem';
 import Spinner from '../spinner/Spinner';
@@ -27,12 +28,11 @@ const HeroesList = () => {
       .catch(() => dispatch(heroesFetchingError()));
 
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch, request]);
 
-  // const deleteItem = (id) => {
-  //     const newHeroes = heroes.filter(item => item.id !== id);
-  //     setHeroes(newHeroes);
-  // }
+  const handleDelete = (id) => {
+    dispatch(deleteHero(id));
+  }
 
   if (heroesLoadingStatus === 'loading') {
     return <Spinner />;
@@ -46,7 +46,7 @@ const HeroesList = () => {
     }
 
     return arr.map(({ id, ...props }) => {
-      return <HeroesListItem key={id} {...props} />;
+      return <HeroesListItem key={id} {...props} onDelete={() => handleDelete(id)}/>;
     });
   };
 
