@@ -53,7 +53,9 @@ const reducer = (state = initialState, action) => {
         filteredHeroes:
           state.activeFilter === 'all'
             ? newHeroesList
-            : newHeroesList.filter((item) => item.element === state.activeFilter),
+            : newHeroesList.filter(
+                (item) => item.element === state.activeFilter
+              ),
       };
     case 'FILTERS_FETCHING':
       return {
