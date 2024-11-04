@@ -31,15 +31,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         heroesLoadingStatus: 'error',
       };
-    case 'ADD_HERO':
+    case 'HERO_ADDED':
+      let newAddedHeroesList = [...state.heroes, action.payload];
       return {
         ...state,
-        heroes: [...state.heroes, action.payload],
+        heroes: newAddedHeroesList,
+        filteredHeroes:
+          state.activeFilter === 'all'
+            ? newAddedHeroesList
+            : newAddedHeroesList.filter(
+                (item) => item.element === state.activeFilter
+              ),
       };
-    case 'DELETE_HERO':
+    case 'HERO_DELETED':
+      const newHeroesList = state.heroes.filter(
+        (item) => item.id !== action.payload
+      );
       return {
         ...state,
-        heroes: state.heroes.filter((hero) => hero.id !== action.payload),
+        heroes: newHeroesList,
+        filteredHeroes:
+          state.activeFilter === 'all'
+            ? newHeroesList
+            : newHeroesList.filter((item) => item.element === state.activeFilter),
       };
     case 'FILTERS_FETCHING':
       return {

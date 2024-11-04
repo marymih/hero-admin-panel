@@ -1,7 +1,8 @@
+import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { heroAdded } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
-import { addHero } from '../../actions';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -14,27 +15,53 @@ import { addHero } from '../../actions';
 // данных из фильтров
 
 const HeroesAddForm = () => {
-
-	const dispatch = useDispatch();
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [element, setElement] = useState('');
 
-	const handleSubmit = (e) => {
+	const {filters, filtersLoadingStatus} = useSelector(state => state);
+	const dispatch = useDispatch();
+	const {request} = useHttp();
+
+
+	const onSubmitHandler = (e) => {
 		e.preventDefault();
-		dispatch(addHero({
+		const newHero = {
 			id: uuidv4(),
 			name,
 			description,
 			element
-		}));
+		}
+		request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
+			.then(res => console.log(res, 'New hero added'))
+			.then(dispatch(heroAdded(newHero)))
+			.catch(err => console.log(err));
+		
 		setName('');
 		setDescription('');
 		setElement('');
 	}
 
+	const renderFilters = (filters, status) => {
+		if (status === 'loading') {
+			return <option>Загрузка элементов</option>
+		} else if (status === 'error') {
+			return <option>Ошибка загрузки</option>
+		}
+
+		if (filters && filters.length > 0) {
+			return filters.map(({name, label}) => {
+				if (name === 'all') return;
+
+				return (
+					<option key={name} value={name}>{label}</option>
+				)
+			})
+		}
+	}
+
   return (
-    <form className="border p-4 shadow-lg rounded" onSubmit={handleSubmit}>
+    <form className="border p-4 shadow-lg rounded" onSubmit={onSubmitHandler}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label fs-4">
           Имя нового героя
@@ -57,9 +84,9 @@ const HeroesAddForm = () => {
         </label>
         <textarea
           required
-          name="description"
+          name="text"
           className="form-control"
-          id="description"
+          id="text"
           placeholder="Что я умею?"
           style={{ height: '130px' }}
 					value={description}
@@ -72,11 +99,8 @@ const HeroesAddForm = () => {
           Выбрать элемент героя
         </label>
         <select required className="form-select" id="element" name="element" value={element} onChange={(e) => setElement(e.target.value)}>
-          <option>Я владею элементом...</option>
-          <option value="fire">Огонь</option>
-          <option value="water">Вода</option>
-          <option value="wind">Ветер</option>
-          <option value="earth">Земля</option>
+					<option value=''>Я владею элементом...</option>
+					{renderFilters(filters, filtersLoadingStatus)}
         </select>
       </div>
 
