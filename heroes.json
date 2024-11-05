@@ -17,6 +17,12 @@
       "name": "Third hero",
       "description": "Water hero",
       "element": "water"
+    },
+    {
+      "id": "7c2ec769-08ce-45cc-b587-66f19ed64280",
+      "name": "Alex",
+      "description": "Human",
+      "element": "earth"
     }
   ],
   "filters": [
