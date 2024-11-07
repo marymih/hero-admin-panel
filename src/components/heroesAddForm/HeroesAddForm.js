@@ -1,7 +1,7 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { heroAdded } from '../../actions';
+import { heroAdded } from '../heroesList/heroesSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 const HeroesAddForm = () => {
