@@ -1,11 +1,10 @@
-import { useHttp } from '../../hooks/http.hook';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import store from '../../store';
 
 import { selectAll } from '../heroesFilters/filtersSlice';
-import { heroAdded } from '../heroesList/heroesSlice';
+import { useAddHeroMutation } from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
   //states for form inputs
@@ -13,10 +12,10 @@ const HeroesAddForm = () => {
   const [description, setDescription] = useState('');
   const [element, setElement] = useState('');
 
+  const [addHero] = useAddHeroMutation();
+
   const { filtersLoadingStatus } = useSelector((state) => state.filters);
   const filters = selectAll(store.getState());
-  const dispatch = useDispatch();
-  const { request } = useHttp();
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -27,12 +26,7 @@ const HeroesAddForm = () => {
       element,
     };
 
-    // Send data to the server in JSON format
-    // ONLY if the request is successful - send the hero to the store
-    request('http://localhost:3001/heroes', 'POST', JSON.stringify(newHero))
-      .then((res) => console.log(res, 'New hero added'))
-      .then(dispatch(heroAdded(newHero)))
-      .catch((err) => console.log(err));
+    addHero(newHero).unwrap();
 
     // Clear the form after submission
     setName('');
