@@ -3,8 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { fetchFilters } from '../../actions';
-import { activeFilterChanged } from '../heroesFilters/filtersSlice';
+import {
+  activeFilterChanged,
+  fetchFilters,
+} from '../heroesFilters/filtersSlice';
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
@@ -16,7 +18,7 @@ const HeroesFilters = () => {
 
   // Request to the server to get filters and change state
   useEffect(() => {
-    dispatch(fetchFilters(request));
+    dispatch(fetchFilters());
     // eslint-disable-next-line
   }, []);
 
