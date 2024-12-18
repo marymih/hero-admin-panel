@@ -48,6 +48,5 @@
     "gh-pages": "^6.2.0",
     "json-server": "^0.17.4"
   },
-  "homepage": "https://marymih.github.io/hero-admin-panel",
-  "proxy": "https://heroes-json-k08euucon-mariias-projects-9f12df1a.vercel.app"
+  "homepage": "https://marymih.github.io/hero-admin-panel"
 }
