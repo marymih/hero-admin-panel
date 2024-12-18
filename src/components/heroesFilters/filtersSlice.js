@@ -16,7 +16,7 @@ export const fetchFilters = createAsyncThunk(
   'filters/fetchFilters',
   async () => {
     const { request } = useHttp();
-    return await request('http://localhost:3001/filters');
+    return await request('https://heroes-json-k08euucon-mariias-projects-9f12df1a.vercel.app/filters');
   }
 );
 
