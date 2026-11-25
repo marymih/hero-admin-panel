@@ -1,44 +1,34 @@
 # Hero Admin Panel
 
-[Hero Admin Panel](https://marymih.github.io/hero-admin-panel/) is a web application for managing heroes, allowing users to create, delete, and filter heroes by group affiliation.
+A small admin panel for managing a list of heroes: add, delete and filter them by element. Built as a learning project to practice Redux Toolkit and RTK Query.
+
+**Live demo:** https://marymih.github.io/hero-admin-panel/
 
 ## Features
-- **Add Heroes:** Input fields to add a new hero to the list.
-- **View Heroes:** A list displaying all heroes.
-- **Filter Heroes:** Sort heroes by group affiliation using filters.
-- **Delete Heroes:** Remove heroes from the list.
-- **Backend Integration:** REST API built using JSON Server and deployed on Vercel.
 
-## Installation
+- List of heroes loaded from a REST API
+- Add a hero with name, description and element
+- Delete a hero
+- Filter heroes by element (fire, water, wind, earth)
+- Loading and error states
 
-Follow these steps to run the application locally:
+## Stack
 
-1. Clone the repository:
-  ```bash
-  git clone https://github.com/marymih/hero-admin-panel.git
-  ```
-2. Navigate to the project directory:
-  ```bash
-  cd hero-admin-panel
-  ```
-3. Install dependencies:
-  ```bash
-  npm install
-  ```
-4. Configure the API Endpoint:
-   
-  Open the .env file and uncomment the line containing http://localhost:3001/ to use the local server.
-   
-5. Run the application locally:
-  ```bash
-  npm start
-  ```
+React, Redux Toolkit, RTK Query, createAsyncThunk, Bootstrap, Sass, react-transition-group.
+Mock REST API: [JSON Server](https://github.com/typicode/json-server) ([heroes-json](https://github.com/marymih/heroes-json), deployed on Vercel).
 
-This command starts the development server and opens the application in your default web browser.
+## Run locally
 
-## Technologies Used
+```bash
+git clone https://github.com/marymih/hero-admin-panel.git
+cd hero-admin-panel
+npm install
+```
 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Redux](https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=white)
-![Redux Toolkit](https://img.shields.io/badge/Redux%20Toolkit-764ABC?style=for-the-badge&logo=redux&logoColor=white)
+By default the app uses the deployed API. To use a local JSON Server instead, open `.env`, uncomment `REACT_APP_BASE_URL=http://localhost:3001/` and comment out the Vercel URL. Then:
 
+```bash
+npm start
+```
+
+This starts the React dev server and JSON Server (port 3001) together.

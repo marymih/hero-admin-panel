@@ -23,7 +23,7 @@ const HeroesListItem = ({ name, description, element, onDelete }) => {
       className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}
     >
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Unknown_person.jpg"
         className="img-fluid w-25 d-inline"
         alt="unknown hero"
         style={{ objectFit: 'cover' }}
