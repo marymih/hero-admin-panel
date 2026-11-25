@@ -4,6 +4,8 @@ A small admin panel for managing a list of heroes: add, delete and filter them b
 
 **Live demo:** https://marymih.github.io/hero-admin-panel/
 
+![Hero Admin Panel screenshot](docs/screenshot.png)
+
 ## Features
 
 - List of heroes loaded from a REST API
